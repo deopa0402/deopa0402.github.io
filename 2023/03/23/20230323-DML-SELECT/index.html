@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      DML SELECT 
+      
+      
+      |
+    
+     Front Dev😊
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/purple-heart_1f49c.png">
+    <link rel="icon" href="/images/purple-heart_1f49c.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/icon-heart.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">deopa0402</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">DML SELECT</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-03-23 14:59:53
+        </span>
+        
+      </div>
+      <div class="markdown-body">
+        <p>SELECT문은 테이블을 구성하는 튜플(행)들 중에서 <strong>전체 또는 조건을 만족하는 튜플(행)을 검색하여 주기억장치 상에 임시 테이블로 구성</strong>하는 명령문이다.</p>
+<h2 id="일반-형식"><a href="#일반-형식" class="headerlink" title="일반 형식"></a>일반 형식</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PREDICATE [테이블명,]속성명<span class="number">1</span>, [테이블명,]속성명<span class="number">2</span>, ...</span><br><span class="line"><span class="keyword">FROM</span> 테이블명<span class="number">1</span>, 테이블명<span class="number">2</span>,...</span><br><span class="line">[<span class="keyword">WHERE</span> 조건]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> 속성명<span class="number">1</span>, 속성명<span class="number">2</span>, ...]</span><br><span class="line">[<span class="keyword">HAVING</span> 조건]</span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> 속성명 [<span class="keyword">ASC</span> <span class="operator">|</span> DEAC]];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>속성명 : 검색하여 불러온 속성(열) 또는 속성을 이용한 수식을 지정한다.</p>
+<ul>
+<li>기본 테이블을 구성하는 모든 속성을 지정할 때는 ‘*‘를 기술한다.</li>
+<li>두 개 이상의 테이블을 대상으로 검색할 때는 ‘테이블명.속성명’으로 표현한다.</li>
+</ul>
+</li>
+<li><p>PREDICATE : 불러올 튜플 수를 제한할 명령어를 기술한다.</p>
+<ul>
+<li>ALL : 모든 튜플을 검색할 때 지정하는 것으로, 주로 생략합니다.</li>
+<li>DISTINCT : 중복된 튜플이 있으면 그 중 첫 번째 한 개만 검색합니다.</li>
+<li>DISINCTROW : 중복된 튜플을 제거하고 한 개만 검색하지만 선택된 속성의 값이 아닌, 튜플 전체를 대상으로 합니다.</li>
+</ul>
+<br>
+</li>
+<li><p>FORM절 : 질의에 의해 검색될 데이터들을 포함하는 테이블명을 기술한다.</p>
+</li>
+<li><p>WHERE절 : 검색할 조건을 기술한다.</p>
+</li>
+<li><p>GROUP BY절 : 특정 속성을 기준으로 그룹화하여 검색할 때 그룹화할 속성을 지정한다.</p>
+</li>
+<li><p>일반적으로 GROUP BY절은 그룹 함수와 함께 사용된다.</p>
+</li>
+<li><p>HAVING절 : GROUP BY와 함께 사용되며, 그룹에 대한 조건을 지정한다.</p>
+</li>
+<li><p>ORDER BY절 : 특정 속성을 기준으로 정렬하며 검색할 때 사용한다.</p>
+<ul>
+<li>속성명 : 정렬의 기준이 되는 속성명을 기술한다.</li>
+<li>[ASC|DESC] : 정렬 방식으로서’ASC’는 오름차순, ‘DESC’는 내림차순이다, 생략하면 오름차순’ASC’으로 지정된다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="기본검색"><a href="#기본검색" class="headerlink" title="기본검색"></a>기본검색</h2><p>SELECT절에 원하는 속성을 지정하여 검색한다.</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>홍길동</td>
+<td>기획</td>
+<td>04&#x2F;05&#x2F;61</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>임꺽정</td>
+<td>인터넷</td>
+<td>01&#x2F;09&#x2F;69</td>
+<td>망원동</td>
+<td>80</td>
+</tr>
+<tr>
+<td>황진이</td>
+<td>편집</td>
+<td>07&#x2F;21&#x2F;75</td>
+<td>망원동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>김선달</td>
+<td>편집</td>
+<td>10&#x2F;22&#x2F;73</td>
+<td>망원동</td>
+<td>90</td>
+</tr>
+<tr>
+<td>성춘향</td>
+<td>기획</td>
+<td>02&#x2F;20&#x2F;64</td>
+<td>망원동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>장길산</td>
+<td>편집</td>
+<td>03&#x2F;11&#x2F;67</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>일지매</td>
+<td>기획</td>
+<td>04&#x2F;29&#x2F;78</td>
+<td>망원동</td>
+<td>110</td>
+</tr>
+<tr>
+<td>강건달</td>
+<td>인터넷</td>
+<td>12&#x2F;11&#x2F;80</td>
+<td>망원동</td>
+<td>90</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>취미</th>
+<th>경력</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>김선달</td>
+<td>당구</td>
+<td>10</td>
+</tr>
+<tr>
+<td>선춘향</td>
+<td>나이트댄스</td>
+<td>5</td>
+</tr>
+<tr>
+<td>일지매</td>
+<td>택견</td>
+<td>15</td>
+</tr>
+<tr>
+<td>임꺽정</td>
+<td>씨름</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FROM</span> 사원;</span><br><span class="line"><span class="keyword">SELECT</span> 사원 <span class="keyword">FROM</span> 사원;</span><br><span class="line"><span class="keyword">SELECT</span> 이름, 부서, 생일, 주소, 기본급 <span class="keyword">FROM</span> 사원;</span><br><span class="line"><span class="keyword">SELECT</span> 사원.이름, 사원.부서, 사원.생일, 사원.주소, 사원.기본급 <span class="keyword">FROM</span> 사원;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Q1 &lt;사원&gt; 테이블의 모든 튜플을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 사원;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>위의 SQL은 모두 보기에 주어진 &lt;사원&gt; 테이블 전체를 그대로 출력합니다.</p>
+</li>
+<li><p>Q2 &lt;사원&gt; 테이블에서 주소만 검색하되 같은 주소는 한 번만 출력하시오.</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> 주소</span><br><span class="line"><span class="keyword">FROM</span> 사원;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>주소</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>대교동</td>
+</tr>
+<tr>
+<td>망원동</td>
+</tr>
+<tr>
+<td>상암동</td>
+</tr>
+<tr>
+<td>서교동</td>
+</tr>
+<tr>
+<td>연남동</td>
+</tr>
+<tr>
+<td>합정동</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q3 &lt;사원&gt; 테이블에서 ‘기본급’에 특별수당 10을 더한 월급을 “XX부서의 XXX의 월급 XXX”형태로 출력하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 부서 <span class="operator">+</span> <span class="string">&#x27;부서의&#x27;</span> <span class="keyword">AS</span> 부서<span class="number">2</span>, 이름 <span class="operator">+</span> <span class="string">&#x27;의 월급&#x27;</span>,<span class="keyword">AS</span> 이름, 기본급 <span class="operator">+</span> <span class="number">10</span> <span class="keyword">AS</span> RLQHSRMQ2</span><br><span class="line"><span class="keyword">FROM</span> 사원;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>부서</th>
+<th>이름2</th>
+<th>기본급2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>기획부서의</td>
+<td>홍길동의 월급</td>
+<td>130</td>
+</tr>
+<tr>
+<td>인터넷부서의</td>
+<td>임꺽정의 월급</td>
+<td>90</td>
+</tr>
+<tr>
+<td>편집부서의</td>
+<td>황진이의 월급</td>
+<td>110</td>
+</tr>
+<tr>
+<td>편집부서의</td>
+<td>김건달의 월급</td>
+<td>100</td>
+</tr>
+<tr>
+<td>기획부서의</td>
+<td>성춘향의 월급</td>
+<td>110</td>
+</tr>
+<tr>
+<td>편집부서의</td>
+<td>장길산의 월급</td>
+<td>130</td>
+</tr>
+<tr>
+<td>기획부서의</td>
+<td>일지매의 월급</td>
+<td>120</td>
+</tr>
+<tr>
+<td>인터넷부서의</td>
+<td>강건달의 월급</td>
+<td>100</td>
+</tr>
+</tbody></table>
+<h2 id="조건-지정-검색"><a href="#조건-지정-검색" class="headerlink" title="조건 지정 검색"></a>조건 지정 검색</h2><p>WHERE절에 조건을 지정하여 조건에 만족하는 튜플을 검색한다.</p>
+<ul>
+<li>Q1 &lt;사원&gt; 테이블에서 ‘기획’ 부의 모든 튜플을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 부서 <span class="operator">=</span> <span class="string">&#x27;기획&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>홍길동</td>
+<td>기획</td>
+<td>04&#x2F;05&#x2F;61</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>성춘향</td>
+<td>기획</td>
+<td>02&#x2F;20&#x2F;64</td>
+<td>대흥동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>일지매</td>
+<td>기획</td>
+<td>04&#x2F;29&#x2F;78</td>
+<td>연남동</td>
+<td>110</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q2 &lt;사원&gt; 테이블에서 부서는 ‘기획’이고, 기본급이 110보다 큰 튜플을 검색하는 SQL문을 작성하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 부서 <span class="operator">=</span> <span class="string">&#x27;기획&#x27;</span> <span class="keyword">AND</span> 기본급 <span class="operator">&gt;</span> <span class="number">110</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>홍길동</td>
+<td>기획</td>
+<td>04&#x2F;05&#x2F;61</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q3 &lt;사원&gt; 테이블에서 ‘부서’가 “기획” 이거나 “인터넷”인 튜플을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 부서<span class="operator">=</span> <span class="string">&#x27;기획&#x27;</span> <span class="keyword">OR</span> 부서 <span class="operator">=</span> <span class="string">&#x27;인터넷&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>홍길동</td>
+<td>기획</td>
+<td>04&#x2F;05&#x2F;61</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>임꺽정</td>
+<td>인터넷</td>
+<td>01&#x2F;09&#x2F;69</td>
+<td>서교동</td>
+<td>80</td>
+</tr>
+<tr>
+<td>성춘향</td>
+<td>기획</td>
+<td>02&#x2F;20&#x2F;64</td>
+<td>대흥동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>일지매</td>
+<td>기획</td>
+<td>04&#x2F;29&#x2F;78</td>
+<td>연남동</td>
+<td>110</td>
+</tr>
+<tr>
+<td>강건달</td>
+<td>인터넷</td>
+<td>12&#x2F;11&#x2F;80</td>
+<td></td>
+<td>90</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q4 &lt;사원&gt; 테이블에서 성이 ‘김’인 사람의 튜플을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 이름 <span class="keyword">LIKE</span> <span class="string">&#x27;김%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>김선달</td>
+<td>편집</td>
+<td>10&#x2F;22&#x2F;73</td>
+<td>망원동</td>
+<td>90</td>
+</tr>
+</tbody></table>
+<ul>
+<li>q5 &lt;사원&gt; 테이블에서 ‘생일’이 ‘01&#x2F;01&#x2F;69’에서 ‘12&#x2F;31&#x2F;73’사이인 튜플을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 생일 <span class="keyword">BETWEEN</span> #<span class="number">01</span><span class="operator">/</span><span class="number">01</span><span class="operator">/</span><span class="number">69</span># <span class="keyword">AND</span> #<span class="number">12</span><span class="operator">/</span><span class="number">31</span><span class="operator">/</span><span class="number">73</span>#;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>임꺽정</td>
+<td>인터넷</td>
+<td>01&#x2F;09&#x2F;69</td>
+<td>서교동</td>
+<td>80</td>
+</tr>
+<tr>
+<td>김선달</td>
+<td>편집</td>
+<td>10&#x2F;22&#x2F;73</td>
+<td>망원동</td>
+<td>90</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q6 &lt;사원&gt; 테이블에서 ‘주소’가 NULL인 튜플을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 주소 <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>강건달</td>
+<td>인터넷</td>
+<td>12&#x2F;11&#x2F;80</td>
+<td></td>
+<td>90</td>
+</tr>
+</tbody></table>
+<h2 id="정렬-검색"><a href="#정렬-검색" class="headerlink" title="정렬 검색"></a>정렬 검색</h2><p>ORDER BY절에 특정 속성을 지정하여 지정된 속성으로 자료를 정렬하여 검색한다.</p>
+<ul>
+<li>Q1 &lt;사원&gt; 테이블에서 ‘주소’를 기준으로 내림차순 정렬시켜 상위2개 튜플만 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TOP <span class="number">2</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line">DRDER <span class="keyword">BY</span> 주소 <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>황진이</td>
+<td>편집</td>
+<td>07&#x2F;21&#x2F;75</td>
+<td>합정동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>일지매</td>
+<td>기획</td>
+<td>04&#x2F;29&#x2F;78</td>
+<td>연남동</td>
+<td>110</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q2 &lt;사원&gt; 테이블에서’부서’를 기준으로 오름차순 정렬하고, 같은 부서에 대해서는 ‘이름’을 기준으로 내림차순 정렬시켜서 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> 부서 <span class="keyword">ASC</span>,이름 <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>홍길동</td>
+<td>기획</td>
+<td>04&#x2F;05&#x2F;61</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>일지매</td>
+<td>기획</td>
+<td>04&#x2F;29&#x2F;78</td>
+<td>연남동</td>
+<td>110</td>
+</tr>
+<tr>
+<td>성춘향</td>
+<td>기획</td>
+<td>02&#x2F;20&#x2F;64</td>
+<td>대홍동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>임꺽정</td>
+<td>인터넷</td>
+<td>01&#x2F;09&#x2F;69</td>
+<td>서교동</td>
+<td>80</td>
+</tr>
+<tr>
+<td>강건달</td>
+<td>인터넷</td>
+<td>12&#x2F;11&#x2F;80</td>
+<td></td>
+<td>90</td>
+</tr>
+<tr>
+<td>황진이</td>
+<td>편집</td>
+<td>07&#x2F;21&#x2F;75</td>
+<td>합정동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>장길산</td>
+<td>편집</td>
+<td>03&#x2F;11&#x2F;67</td>
+<td>상암동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>김선달</td>
+<td>편집</td>
+<td>10&#x2F;22&#x2F;73</td>
+<td>망원동</td>
+<td>90</td>
+</tr>
+</tbody></table>
+<h2 id="그룹지정-검색"><a href="#그룹지정-검색" class="headerlink" title="그룹지정 검색"></a>그룹지정 검색</h2><p>GROUP BY절에 지정한 속성을 기준으로 자료를 그룹화하여 검색한다.</p>
+<ul>
+<li>Q1 &lt;사원&gt; 테이블에서 ‘부서’별 ‘기본급’의 평균을 구하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 부서, <span class="built_in">AVG</span>(기본급) <span class="keyword">AS</span> 평균</span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> 부서;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>부서</th>
+<th>평균</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>기획</td>
+<td>110</td>
+</tr>
+<tr>
+<td>인터넷</td>
+<td>85</td>
+</tr>
+<tr>
+<td>편집</td>
+<td>103.3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q2 &lt;사원&gt; 테이블에서 ‘부서’별 튜플 수를 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 부서, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> 사원수</span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> 부서;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>결과</th>
+<th>사원수</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>기획</td>
+<td>3</td>
+</tr>
+<tr>
+<td>인터넷</td>
+<td>2</td>
+</tr>
+<tr>
+<td>편집</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q3 &lt;사원&gt; 테이블에서 ‘기본급’이 100이상인 사원이 2명 이상인 ‘부서’의 튜플 수를 구하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 부서, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> 사원수</span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 기본급<span class="operator">&gt;=</span><span class="number">100</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> 부서</span><br><span class="line">HVAING <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;=</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>결과</th>
+<th>사원수</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>기획</td>
+<td>3</td>
+</tr>
+<tr>
+<td>편집</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<h2 id="하위-질의"><a href="#하위-질의" class="headerlink" title="하위 질의"></a>하위 질의</h2><p>하위 질의가 있는 질의문은 조건절에 주어진 하위 질의를 먼저 수행하며 그 검색 결과를 조건절의 피연산자로 사용한다.</p>
+<ul>
+<li>Q1 ‘취미’가 “나이트댄스”인 사원의 ‘이름’과 ‘주소’를 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 이름, 주소</span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 이름<span class="operator">=</span>(<span class="keyword">SELECT</span> 이름 <span class="keyword">FROM</span> 여가활동 <span class="keyword">WHERE</span> 취미<span class="operator">=</span><span class="string">&#x27;나이트댄스&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>주소</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>성춘향</td>
+<td>대흥동</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Q2 취미활동을 하지 않는 사원들을 검색하시오.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">WHERE</span> 이름 <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> 이름 <span class="keyword">FROM</span> 여가활동);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>부서</th>
+<th>생일</th>
+<th>주소</th>
+<th>기본급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>홍길동</td>
+<td>기획</td>
+<td>04&#x2F;05&#x2F;61</td>
+<td>망원동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>환진이</td>
+<td>편집</td>
+<td>07&#x2F;21&#x2F;75</td>
+<td>합정동</td>
+<td>100</td>
+</tr>
+<tr>
+<td>장길산</td>
+<td>편집</td>
+<td>03&#x2F;11&#x2F;67</td>
+<td>상암동</td>
+<td>120</td>
+</tr>
+<tr>
+<td>강건달</td>
+<td>인터넷</td>
+<td>12&#x2F;11&#x2F;80</td>
+<td></td>
+<td>90</td>
+</tr>
+</tbody></table>
+<h2 id="통합-UNION-질의"><a href="#통합-UNION-질의" class="headerlink" title="통합(UNION) 질의"></a>통합(UNION) 질의</h2><p>두 SELECT문의 조회 결과를 통합하여 검색한다.</p>
+<ul>
+<li>Q1 사원들의 명단이 &lt;사원&gt; 테이블과 &lt;직원&gt; 테이블에 저장되어 있다. 두 테이블을 통합하는 질의문을 작성하시오. 단. 같은 레코드가 두 번 나오지 않게 하시오.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>사원</th>
+<th>직급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>김형석</td>
+<td>대리</td>
+</tr>
+<tr>
+<td>홍연선</td>
+<td>과장</td>
+</tr>
+<tr>
+<td>류기선</td>
+<td>부장</td>
+</tr>
+<tr>
+<td>김현천</td>
+<td>이사</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>사원</th>
+<th>직급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>신원섭</td>
+<td>이사</td>
+</tr>
+<tr>
+<td>이성호</td>
+<td>대리</td>
+</tr>
+<tr>
+<td>홍영선</td>
+<td>과장</td>
+</tr>
+<tr>
+<td>류기선</td>
+<td>부장</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 사원</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> 직원;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>사원</th>
+<th>직급</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>김현천</td>
+<td>이사</td>
+</tr>
+<tr>
+<td>김형석</td>
+<td>대리</td>
+</tr>
+<tr>
+<td>류기선</td>
+<td>부장</td>
+</tr>
+<tr>
+<td>신원섭</td>
+<td>이사</td>
+</tr>
+<tr>
+<td>이성호</td>
+<td>대리</td>
+</tr>
+<tr>
+<td>홍영선</td>
+<td>과장</td>
+</tr>
+</tbody></table>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/03/20/20230320-%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%8A%A5%EC%82%AC-%EC%8B%A4%EA%B8%B0-SQL%EC%9D%98-%EA%B0%9C%EB%85%90/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-03-23 14:59:53
+            </span>
+            
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/07/11/TP-LINK-ARCHER-AX50-%ED%8F%AC%ED%8A%B8%ED%8F%AC%EC%9B%8C%EB%94%A9/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9D%BC%EB%B0%98-%ED%98%95%EC%8B%9D"><span class="toc-text">일반 형식</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8%EA%B2%80%EC%83%89"><span class="toc-text">기본검색</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A1%B0%EA%B1%B4-%EC%A7%80%EC%A0%95-%EA%B2%80%EC%83%89"><span class="toc-text">조건 지정 검색</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A0%AC-%EA%B2%80%EC%83%89"><span class="toc-text">정렬 검색</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EA%B7%B8%EB%A3%B9%EC%A7%80%EC%A0%95-%EA%B2%80%EC%83%89"><span class="toc-text">그룹지정 검색</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%95%98%EC%9C%84-%EC%A7%88%EC%9D%98"><span class="toc-text">하위 질의</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%86%B5%ED%95%A9-UNION-%EC%A7%88%EC%9D%98"><span class="toc-text">통합(UNION) 질의</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2023 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + DML%20SELECT + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F03%2F23%2F20230323-DML-SELECT%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/03/23/20230323-DML-SELECT/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
